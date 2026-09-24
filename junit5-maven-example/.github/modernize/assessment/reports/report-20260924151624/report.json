@@ -1,0 +1,162 @@
+{
+  "version": "1.0.0",
+  "producer": "Java AppCAT CLI",
+  "metadata": {
+    "analysisStartTime": "2026-09-24T15:16:24.336759749Z",
+    "analysisEndTime": "2026-09-24T15:16:33.321048357Z",
+    "status": "Complete",
+    "privacyMode": "Protected",
+    "privacyModeHelpUrl": "https://aka.ms/appcat-privacy-mode",
+    "targetIds": [
+      "azure-appservice",
+      "azure-aks",
+      "azure-container-apps"
+    ],
+    "targetDisplayNames": [
+      "Azure App Service",
+      "Azure Kubernetes Service",
+      "Azure Container Apps"
+    ],
+    "capabilities": [
+      "openjdk25"
+    ],
+    "os": [
+      "linux",
+      "windows"
+    ],
+    "domains": [
+      "java-upgrade",
+      "cloud-readiness"
+    ],
+    "mode": "issue-only",
+    "minimumCveSeverity": "high"
+  },
+  "summary": {
+    "totalProjects": 1,
+    "totalIssues": 2,
+    "totalIncidents": 2,
+    "totalEffort": 11,
+    "charts": {
+      "severity": {
+        "mandatory": 2,
+        "optional": 0,
+        "potential": 0,
+        "information": 0
+      },
+      "category": {
+        "containerization": 1,
+        "java-version-upgrade": 1
+      }
+    }
+  },
+  "projects": [
+    {
+      "path": ".",
+      "issues": 2,
+      "storyPoints": 11,
+      "properties": {
+        "appName": "junit5-maven-example",
+        "jdkVersion": "1.8",
+        "frameworks": null,
+        "languages": [
+          "Java"
+        ],
+        "tools": [
+          "Maven"
+        ]
+      },
+      "incidents": [
+        {
+          "ruleId": "azure-java-version-01000",
+          "incidentId": "05a8b6cb-bf7f-45a1-8918-c3a8993bd75c",
+          "location": "pom.xml",
+          "locationKind": "File",
+          "line": 12,
+          "column": 0,
+          "targets": {
+            "azure-aks": {
+              "effort": 8,
+              "severity": "mandatory"
+            },
+            "azure-appservice": {
+              "effort": 8,
+              "severity": "mandatory"
+            },
+            "azure-container-apps": {
+              "effort": 8,
+              "severity": "mandatory"
+            }
+          },
+          "labels": [
+            "type=violation",
+            "ruleset=azure/springboot"
+          ]
+        },
+        {
+          "ruleId": "dockerfile-00000",
+          "incidentId": "571cc31a-35f8-4765-b925-213cdbe204af",
+          "location": "",
+          "locationKind": "",
+          "targets": {
+            "azure-aks": {
+              "effort": 3,
+              "severity": "mandatory"
+            },
+            "azure-container-apps": {
+              "effort": 3,
+              "severity": "mandatory"
+            }
+          },
+          "labels": [
+            "type=violation",
+            "ruleset=cloud-readiness"
+          ]
+        }
+      ]
+    }
+  ],
+  "rules": {
+    "azure-java-version-01000": {
+      "id": "azure-java-version-01000",
+      "description": "The application is using a Java version that has reached the end of support. It is strongly recommended to plan and execute a migration strategy to upgrade your application to a supported Java version.\nSupported Java versions receive long-term support (LTS) from the Java community, including bug fixes and updates. Migrating to a supported version provides you with a stable and well-maintained platform for your application.",
+      "title": "Java Version Has Reached the End of Support",
+      "severity": "mandatory",
+      "effort": 8,
+      "labels": [
+        "target=azure-appservice",
+        "target=azure-aks",
+        "target=azure-container-apps",
+        "source",
+        "domain=java-upgrade",
+        "category=java-version-upgrade",
+        "version",
+        "os=windows",
+        "os=linux"
+      ]
+    },
+    "dockerfile-00000": {
+      "id": "dockerfile-00000",
+      "description": "No Dockerfile was found in the project. This suggests the application may not yet be containerized. \nConsider creating a Dockerfile to enable container-based replatforming to Azure services such as Azure Container Apps or AKS.",
+      "title": "No Dockerfile found",
+      "severity": "mandatory",
+      "effort": 3,
+      "links": [
+        {
+          "url": "https://www.baeldung.com/java-dockerize-app",
+          "title": "Dockerizing a Java Application"
+        }
+      ],
+      "labels": [
+        "target=azure-aks",
+        "target=azure-container-apps",
+        "capability=containerization",
+        "source",
+        "domain=cloud-readiness",
+        "category=containerization",
+        "containerization",
+        "os=windows",
+        "os=linux"
+      ]
+    }
+  }
+}
